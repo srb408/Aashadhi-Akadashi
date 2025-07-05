@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <title>Vitthal Ekadashi Greeting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Modak&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Modak', cursive;
+      background: linear-gradient(135deg, #ffd3a5 0%, #fd6585 100%);
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+    }
+
+    .greeting-container {
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .greeting {
+      font-size: 1.8em;
+      color: #d500f9;
+      animation: pulse 2s infinite;
+      margin: 20px 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+
+    .firecracker {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      animation: explode 1.5s infinite ease-in-out;
+    }
+
+    .left-fire {
+      top: -10px;
+      left: 15%;
+    }
+
+    .right-fire {
+      top: -10px;
+      right: 15%;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+      50% { transform: scale(1.4) rotate(45deg); opacity: 1; }
+      100% { transform: scale(0.8) rotate(90deg); opacity: 0.5; }
+    }
+
+    .name-box {
+      margin: 30px 20px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      width: 70%;
+      max-width: 300px;
+      font-size: 1.1em;
+      border: 2px solid #d81b60;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .whatsapp-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      color: white;
+      background-color: #25D366;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .whatsapp-btn img {
+      height: 24px;
+    }
+
+    .link-box {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #333;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Video -->
+  <video autoplay muted loop playsinline>
+    <source src="vitthal.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Greeting -->
+  <div class="greeting-container">
+    <img src="https://cliply.co/wp-content/uploads/2021/09/CLIPLY_372109170_FREE_FIREWORKS_400.gif" class="firecracker left-fire">
+    <div class="greeting">एकादशीच्या हार्दिक शुभेच्छा</div>
+    <img src="https://cliply.co/wp-content/uploads/2021/09/CLIPLY_372109170_FREE_FIREWORKS_400.gif" class="firecracker right-fire">
+  </div>
+
+  <!-- Name Input -->
+  <div class="name-box">
+    <input type="text" id="nameInput" placeholder="तुमचं नाव लिहा...">
+    <br>
+    <button class="whatsapp-btn" onclick="shareOnWhatsApp()">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+      WhatsApp
+    </button>
+    <div id="shareLink" class="link-box"></div>
+  </div>
+
+  <script>
+    function shareOnWhatsApp() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) {
+        alert("कृपया तुमचं नाव लिहा.");
+        return;
+      }
+      const url = `${window.location.href.split('?')[0]}?name=${encodeURIComponent(name)}`;
+      const message = `🌸 एकादशीच्या हार्दिक शुभेच्छा, ${name}! 🌼\nVitthal Darshan पाहा:\n${url}`;
+      const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, "_blank");
+    }
+
+    // Show name if shared link opened
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get("name");
+      if (name) {
+        document.querySelector(".greeting").innerText = `एकादशीच्या हार्दिक शुभेच्छा, ${name} 🎉`;
+      }
+    };
+  </script>
+
+</body>
+</html>
